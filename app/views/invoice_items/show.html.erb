@@ -1,0 +1,112 @@
+<div class="invoice-box">
+        <table cellpadding="0" cellspacing="0">
+          <tr class="top">
+            <td colspan="4">
+              <table>
+                <tr>
+                  <td class="title">
+                    <%= image_tag wicked_pdf_asset_base64('company_logo.png') %>
+                  </td>
+
+                  <td>
+                    Invoice 
+                    <br>
+                    Created: <b><%= @invoice_item.created_at.strftime('%d/%m/%Y') %></b>
+                    <br>
+                    Due: <b><%= (@invoice_item.created_at + 1.month).strftime('%d/%m/%Y') %></b>
+                    <br>
+    
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <tr class="information">
+            <td colspan="4">
+              <table>
+                <tr>
+                  <td>
+                    <b><%= @invoice_item.name %></b><br>
+                    <%= @invoice_item.description %><br>
+                    <i class="far fa-envelope"></i> <%= @invoice_item.price %><br>
+                    <i class="fas fa-phone"></i> <%= @invoice_item.qty %>
+                  </td>
+
+                  
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <tr class="heading">
+            <td>Payment Method</td>
+            <td colspan="2"></td>
+            <td class="right">Cache</td>
+          </tr>
+
+          <tr class="details">
+            <td>Delivery Method</td>
+            <td colspan="2"></td>
+            <td class="right">1000</td>
+          </tr>
+
+          <tr class="heading">
+            <td>Item</td>
+            <td class="right">Price</td>
+            <td class="right">Qty</td>
+            <td>Total</td>
+          </tr>
+
+          <% @invoice.invoice_items.each do |invoice_item| %>
+            <tr class="item">
+                <td>
+                    <%= invoice_item.name %><br>
+                    <small><%= invoice_item.description %></small>
+                </td>
+
+                <td class="right">
+                    <%= number_to_currency(invoice_item.price) %>
+                </td>
+
+                <td class="right">
+                    x <%= invoice_item.qty %>
+                </td>
+
+                <td>
+                    <%= number_to_currency(invoice_item.price * invoice_item.qty) %>
+                </td>
+            </tr>
+          <% end %>
+
+          <tr>
+            <td colspan="4"></td>
+          </tr>
+
+          <tr>
+            <td colspan="2"></td>
+            <td><b>Subtotal</b></td>
+            <td><%= number_to_currency(@invoice.subtotal) %></td>
+          </tr>
+
+          <tr>
+            <td colspan="2"></td>
+            <td><b>Discount (<%= @invoice.discount %>%)</b></td>
+            <td>- <%= number_to_currency(@invoice.discount_calculated) %></td>
+          </tr>
+
+          <tr>
+            <td colspan="2"></td>
+            <td><b>VAT (<%= @invoice.vat %>%)</b></td>
+            <td>+ <%= number_to_currency(@invoice.vat_calculated) %></td>
+          </tr>
+
+          <tr class="heading">
+            <td colspan="2"></td>
+            <td><b>TOTAL:</b></td>
+            <td>
+               <b><%= number_to_currency(@invoice.total) %></b>
+            </td>
+          </tr>
+        </table>
+    </div>

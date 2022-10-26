@@ -1,0 +1,54 @@
+<h1>New Invoice</h1>
+
+<%= form_with model: @invoice do |form| %>
+  <div>
+    <%= form.label :from_full_name %><br>
+    <%= form.text_field :from_full_name %>
+  </div>
+  <div>
+    <%= form.label :from_address %><br>
+    <%= form.text_field :from_address %>
+  </div>
+  <div>
+    <%= form.label :from_email %><br>
+    <%= form.text_field :from_email %>
+  </div>
+  <div>
+    <%= form.label :from_phone %><br>
+    <%= form.text_field :from_phone %>
+  </div>
+  <div>
+    <%= form.label :to_full_name %><br>
+    <%= form.text_field :to_full_name%>
+  </div>
+  <div>
+    <%= form.label :to_address %><br>
+    <%= form.text_field :to_address %>
+  </div>
+  <div>
+    <%= form.label :to_email %><br>
+    <%= form.text_field :to_email %>
+  </div>
+  <div>
+    <%= form.label :to_phone %><br>
+    <%= form.text_field :to_phone %>
+  </div>
+  <div>
+    <%= form.label :status %><br>
+    <%= form.text_field :status %>
+  </div>
+  <div>
+    <%= form.label  :discount %><br>
+   <%= form.number_field  :discount, value: @invoice.discount ? '%.2f' % @invoice.discount : nil, min: 0, step: 0.01 %>
+   
+  </div>
+  <div>
+    <%= form.label :vat %><br>
+    <%= form.number_field :vat, value: @invoice.vat ? '%.2f' % @invoice.vat : nil, min: 0, step: 0.01 %>
+  </div>
+    
+  
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
